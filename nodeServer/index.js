@@ -23,8 +23,11 @@ io.on('connection', socket=>{
     });
 
     socket.on('send', message =>{
-        socket.broadcast.emit('recieve', {message: message, name: user[socket.id]})
+        socket.broadcast.emit('recieve', {message: message, name: users[socket.id]})
     })
+});
+socket.on('disconnect', message =>{
+    socket.broadcast.emit('left', users[socket.id])
 });
 
 server.listen(8000);
